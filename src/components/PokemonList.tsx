@@ -1,21 +1,21 @@
 "use client";
 
 import { getAllPokemons } from "@/queries/pokemons";
+import { useSearchStore } from "@/store/searchValue.store";
 import { useQuery } from "@tanstack/react-query";
 import PokemonItem from "./PokemonItem";
 
 function PokemonList() {
+  const searchValue = useSearchStore((state) => state.searchValue);
   const { data: pokemons } = useQuery({ queryKey: ["pokemons"], queryFn: getAllPokemons });
+  const searchPokemons = pokemons?.filter((pokemon) => pokemon.korean_name.includes(searchValue));
 
   return (
-    <div className="flex flex-col gap-10 py-10">
-      <h2 className="font-bold text-[24px] text-center">포켓몬 도감</h2>
-      <ul className="grid grid-cols-6 gap-4">
-        {pokemons?.map((pokemon) => (
-          <PokemonItem pokemon={pokemon} key={pokemon.id} />
-        ))}
-      </ul>
-    </div>
+    <ul className="w-[100%] grid grid-cols-6 gap-4">
+      {searchValue
+        ? searchPokemons?.map((pokemon) => <PokemonItem pokemon={pokemon} key={pokemon.id} />)
+        : pokemons?.map((pokemon) => <PokemonItem pokemon={pokemon} key={pokemon.id} />)}
+    </ul>
   );
 }
 
