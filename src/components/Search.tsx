@@ -10,6 +10,7 @@ function Search() {
   const handleSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     saveSearchValue(value);
+    setValue("");
   };
 
   return (

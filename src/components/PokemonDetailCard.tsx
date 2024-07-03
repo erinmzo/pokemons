@@ -1,5 +1,6 @@
 import { Pokemon } from "@/types/pokemons.type";
 import Image from "next/image";
+import Link from "next/link";
 
 function PokemonDetailCard({ pokemon }: { pokemon: Pokemon }) {
   return (
@@ -42,6 +43,9 @@ function PokemonDetailCard({ pokemon }: { pokemon: Pokemon }) {
           </span>
         ))}
       </div>
+      <Link href="/" className="py-2 px-4 rounded bg-blue-700 text-white">
+        돌아가기
+      </Link>
     </div>
   );
 }
